@@ -1,0 +1,482 @@
+SECTION_01_TEST_CASE_STRUCTURE
+
+RULE_01_01_ORDER
+Place test case in a well-defined order.
+Maintaining a common order allows other team members to find their way in the code more easily.
+
+RULE_01_02_TEST_CASE_SPACING
+Always maintain 3 line spaces between each test case.
+
+RULE_01_03_TEST_CASE_COMMENT_HEADER
+Begin each test case with a comment containing:
+- Test case number.
+- Description summary.
+- Prerequisites.
+
+RULE_01_04_LOGIN_SPACING
+Ensure two line spaces after login.
+
+RULE_01_05_VALIDATION_SPACING
+Maintain one line space after each validation.
+
+RULE_01_06_ASSERTIONS
+Include assertions with message for mandatory fields.
+
+RULE_01_07_COMMENT_USAGE
+Add comments where necessary.
+
+
+========================================================================================================================
+
+
+SECTION_02_COMMENTS
+
+RULE_02_01_COMMENT_DESCRIPTION
+Comments should be descriptive and explain the test case in detail.
+
+RULE_02_02_COMMENT_FORMAT
+Comments should start with a capital letter and end with a period.
+
+RULE_02_03_COMMENT_TYPES
+Use /* */ for multi-line comments.
+Use // for single-line comments.
+
+RULE_02_04_TEST_CASE_COMMENT_REQUIREMENT
+Begin each test case with a comment containing:
+- Test case number.
+- Description.
+- Prerequisites.
+
+RULE_02_05_SINGLE_LINE_COMMENT_USAGE
+Include single-line comments whenever necessary to explain the purpose of code.
+
+RULE_02_06_COMMENT_PLACEMENT
+Place comments on a separate line.
+Do not place comments at the end of code lines.
+
+RULE_02_07_COMMENT_SPACING
+Insert one space between // and comment text.
+
+
+========================================================================================================================
+
+
+SECTION_03_SPACES_AND_LAYOUT
+
+RULE_03_01_TEST_CASE_SPACING
+Maintain 3 line spaces between each test case.
+
+RULE_03_02_WINDOW_VALIDATION_SPACING
+Ensure one line space after every window validation.
+
+RULE_03_03_TAB_IDENTIFICATION_SPACING
+Maintain one line space after each tab identification in window class file.
+
+RULE_03_04_CODE_LINE_SPACING
+Do not include spaces between code lines.
+Include one line space before comments only.
+
+RULE_03_05_INDENTATION
+Use indentation of 4 spaces.
+Avoid tabs.
+
+RULE_03_06_KEYWORD_SPACING
+Maintain one space between keywords and expressions.
+
+RULE_03_07_BRACES_PLACEMENT
+Place opening and closing braces on new lines.
+
+
+========================================================================================================================
+
+
+SECTION_04_UNUSED_IMPORTS
+
+RULE_04_01_IMPORT_REMOVAL
+Always remove unused imports using CTRL+R and CTRL+G.
+
+
+========================================================================================================================
+
+
+SECTION_05_MEANINGFUL_NAMES
+
+RULE_05_01_GENERAL_NAMING
+Use meaningful names for:
+- Variables.
+- Methods.
+- Functions.
+- Objects.
+- Constants.
+
+RULE_05_02_TEST_CASE_AND_WINDOW_NAMES
+Use meaningful names for test cases and windows.
+Example: oew, pow, porgw.
+
+RULE_05_03_VARIABLE_NUMERALS
+Numerals can be used in variables if descriptive.
+Example:
+normalItem1
+serialItem2
+
+RULE_05_04_FUNCTION_NAMING
+Name functions based on what they do.
+
+RULE_05_05_VARIABLE_MEMORY
+Use variable names that are easy to remember.
+
+RULE_05_06_EXAMPLE_MEANINGFUL_NAME
+Incorrect:
+var yyyymmdstr = DateTime.Now.ToString("YYYY/MM/DD");
+
+Correct:
+var currentDate = DateTime.Now.ToString("YYYY/MM/DD");
+
+RULE_05_07_SEARCHABLE_NAMES
+Use searchable names.
+
+Example:
+var MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000;
+clearBacklog(backlog, MILLISECONDS_PER_DAY);
+
+RULE_05_08_AVOID_REPETITION
+Do not repeat yourself.
+
+RULE_05_09_DESCRIPTIVE_NAMES
+Use descriptive variable names.
+Examples:
+RowCount
+RowNum
+ServiceRowNum
+
+RULE_05_10_VARIABLE_EXTRACTION
+Example:
+var city = cityZipCodeRegex[0].Value;
+var zipCode = cityZipCodeRegex[1].Value;
+saveCityZipCode(city, zipCode);
+
+
+========================================================================================================================
+
+
+SECTION_06_TEST_CLASS_FILE_NAMING
+
+RULE_06_01_STANDARD_CONVENTION
+Maintain naming convention for test class files.
+
+RULE_06_02_FILE_SUFFIX
+Test class file name must end with TestScenarios.
+
+Example:
+ARTestScenarios
+
+
+========================================================================================================================
+
+
+SECTION_07_WAITS
+
+RULE_07_01_STATIC_WAIT_AVOIDANCE
+Avoid static waits.
+
+RULE_07_02_WAIT_TYPES
+Prefer explicit wait and fluent wait.
+
+RULE_07_03_FRAMEWORK_WAIT_USAGE
+Use assert, set, and framework waits which call explicit and fluent waits.
+
+
+========================================================================================================================
+
+
+SECTION_08_ASSERTION_FOR_MANDATORY_FIELDS
+
+RULE_08_01_ASSERTION_REQUIREMENT
+Always include assertions for mandatory fields.
+
+RULE_08_02_WINDOW_OPEN_ASSERTION
+Include assertions after opening window to ensure page load.
+
+Example:
+var oe = homePage.OpenWindow<OrderEntryWindow>();
+oe.Order.Text("sales_loc_id")
+.Set(opdata["LocationId"])
+.Assert(opdata["LocationId"], "Location Id is not set properly");
+
+
+========================================================================================================================
+
+
+SECTION_09_FASTER_EXECUTION_TIPS
+
+RULE_09_01_SET_TEXT_USAGE
+Use setText instead of set for mandatory fields when assertion is not required.
+
+RULE_09_02_SET_METHOD_SELECTION
+Use set or setText based on test case scenario.
+
+RULE_09_03_TERNARY_OPERATOR_USAGE
+Use ternary operators instead of if-else where possible.
+
+RULE_09_04_FOREACH_USAGE
+Prefer foreach over for loops based on scenario.
+
+
+========================================================================================================================
+
+
+SECTION_10_METHOD_CHAINING
+
+RULE_10_01_METHOD_CHAINING_USAGE
+Use method chaining to improve readability.
+
+Example:
+Assert.AreEqual(Double.Parse(ord.ExtdInfo.Text("allocated_qty").Value),
+Double.Parse(podata["QtyToOrder"]));
+
+RULE_10_02_DECIMAL_TEST_DATA
+Always use decimals in test data for coverage.
+
+RULE_10_03_DECIMAL_VALIDATION
+Cover decimal calculations wherever possible.
+
+
+========================================================================================================================
+
+
+SECTION_11_EXECUTION_SETTINGS
+
+RULE_11_01_CONNECTION_CONFIGURATION
+Ensure base URL and unit test connections match execution repository and database.
+
+RULE_11_02_LOGIN_MODE_VALIDATION
+Verify login modes for default and mixed modes.
+
+
+========================================================================================================================
+
+
+SECTION_12_BRANCH_NAMING
+
+RULE_12_01_STANDARD_BRANCH_FORMAT
+Branch name format:
+TesterName_ModuleName_Testcasename_Version
+
+
+========================================================================================================================
+
+
+SECTION_13_PULL_REQUESTS
+
+RULE_13_01_COMMIT_MESSAGE_CONTENT
+Include:
+- Test case description.
+- Jira link.
+
+RULE_13_02_SCREENSHOT_REQUIREMENT
+Attach screenshots of passing test cases.
+
+RULE_13_03_BRANCH_SYNC
+Pull and merge latest branch before PR.
+
+RULE_13_04_PR_TITLE_FORMAT
+PR title must match test case name and version.
+
+
+========================================================================================================================
+
+
+SECTION_14_BRACES_ALIGNMENT
+
+RULE_14_01_BRACE_ALIGNMENT
+Align curly braces vertically.
+
+
+========================================================================================================================
+
+
+SECTION_15_CODE_PRACTICES
+
+RULE_15_01_STRING_INTERPOLATION
+Use string interpolation instead of concatenation.
+
+Example:
+return $"Student Name is {student.Name}. Age is {student.Age}";
+
+RULE_15_02_TERNARY_OPERATOR_USAGE
+Use ternary operators instead of if-else.
+
+RULE_15_03_FOREACH_PREFERENCE
+Prefer foreach over for loops.
+
+RULE_15_04_LOGICAL_OPERATORS
+Use && instead of &
+Use || instead of |
+
+RULE_15_05_PARAMETER_LIMIT
+Avoid too many parameters.
+
+
+========================================================================================================================
+
+
+SECTION_16_FORMATTING
+
+RULE_16_01_FORMATTING_TOOL_USAGE
+Use CTRL+K and CTRL+D for formatting.
+
+RULE_16_02_UNUSED_CODE_REMOVAL
+Never save unused code.
+Delete unused code.
+
+
+========================================================================================================================
+
+
+SECTION_17_NAMING_NOTATION
+
+RULE_17_01_CAMEL_CASE_USAGE
+Use camelCase for:
+- Method arguments.
+- Local variables.
+
+RULE_17_02_PASCAL_CASE_USAGE
+Use PascalCase for:
+- Classes.
+- Methods.
+
+RULE_17_03_UNDERSCORE_AVOIDANCE
+Avoid underscores in identifiers.
+
+RULE_17_04_HUNGARIAN_NOTATION_AVOIDANCE
+Do not use Hungarian notation.
+
+RULE_17_05_ABBREVIATION_AVOIDANCE
+Avoid abbreviations.
+
+
+========================================================================================================================
+
+
+SECTION_18_CODE_ALIGNMENT
+
+RULE_18_01_ALIGNMENT_REQUIREMENT
+Maintain code alignment.
+
+
+========================================================================================================================
+
+
+SECTION_19_CONSOLE_LOG_RESTRICTION
+
+RULE_19_01_CONSOLE_LOG_AVOIDANCE
+Avoid console.log in code.
+
+
+========================================================================================================================
+
+
+SECTION_20_SQL_USAGE
+
+RULE_20_01_SQL_EXECUTION_TIMING
+Use SQL queries before login and after logout.
+
+
+========================================================================================================================
+
+
+SECTION_21_API_PROJECT_GUIDELINES
+
+RULE_21_01_FOLDER_STRUCTURE
+Create separate folder per endpoint or module.
+Example:
+ItemAPI
+
+RULE_21_02_COMMON_FOLDER_USAGE
+Create common folder per module for payload or test data.
+Example:
+ModuleNamePayloadBuilder.cs
+ModuleNameTestData.xml
+
+RULE_21_03_CLASS_NAME_SUFFIX
+Class name must end with ModuleNameAPIChecks.cs
+
+RULE_21_04_BRANCH_NAMING_FORMAT_API
+Format:
+Tester_ProjectName_ModulesAdded/Description_Version
+
+RULE_21_05_P21DATASERVICE_BRANCH_FORMAT
+Format:
+Tester_ProjectName_Table/View_ModulesAdded/Description_Version
+
+RULE_21_06_PR_TITLE_FORMAT_API
+Format:
+ProjectName: Title based on added modules and version
+
+RULE_21_07_P21DATASERVICE_PR_FORMAT
+Format:
+P21DataServiceAPIChecks_Table/View: Adding endpoint names in version
+
+RULE_21_08_DB_VALIDATION_REQUIREMENT
+SQL queries must:
+- Fetch latest data.
+- Include WHERE clause.
+
+RULE_21_09_TEST_CONTEXT_USAGE
+Use TestContext method to print transaction numbers.
+
+RULE_21_10_TEST_CONTEXT_TERMINOLOGY
+Use:
+Created
+Generated
+Saved
+Updated
+Used
+
+RULE_21_11_MULTIPLE_STATEMENTS_FORMAT
+Use /n on empty lines at beginning without space.
+
+RULE_21_12_DB_VALIDATION_SCOPE
+Validate endpoint only in DB.
+Avoid endpoint dependency validation.
+
+RULE_21_13_TEST_DATA_SOURCE
+Test data must be taken from DB.
+Do not hardcode.
+
+RULE_21_14_ALLOWED_HARDCODE_VALUES
+Values not found in DB CodeP21Table can be hardcoded.
+
+RULE_21_15_TEST_CASE_NAME_FORMAT_API
+Format:
+ModuleName_APIMethodType
+
+Example:
+PurchaseOrderAPI_PostCall
+
+RULE_21_16_MULTIPLE_SCENARIO_NAMING
+Test case names must be descriptive.
+
+RULE_21_17_RANDOM_DATA_GENERATION
+Always use Random function for new values.
+
+Example:
+var unitQuantity = $"{new Random().Next(1, 401)}";
+var itemID = $"ITEMID-{new Random().Next(0, 8763)}";
+
+
+========================================================================================================================
+
+
+SECTION_22_API_PROJECT_STRUCTURE_EXAMPLE
+
+P21EntitySoapAPIChecks
+├── ContactServiceAPI
+│   ├── Common
+│   │   └── ContactServiceTestData.xml
+│   └── ContactServiceAPIChecks.cs
+
+
+========================================================================================================================
+END_OF_DOCUMENT
+========================================================================================================================
