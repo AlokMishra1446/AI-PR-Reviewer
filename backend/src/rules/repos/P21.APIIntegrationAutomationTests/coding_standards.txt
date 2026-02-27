@@ -1,0 +1,179 @@
+Below is your content rewritten properly in clean, structured TXT format for the API repository. You can directly copy and paste this into your project.
+
+---
+
+API PROJECT GUIDELINES
+
+---
+
+1. FOLDER STRUCTURE
+
+Create a separate folder for each endpoint or module.
+
+The folder name must be the endpoint name followed by “API”.
+
+Example:
+ItemAPI
+PurchaseOrderAPI
+ContactServiceAPI
+
+If payloads or test data are required, create a Common folder inside the respective module folder.
+
+Example:
+ModuleNamePayloadBuilder.cs
+ModuleNameTestData.xml
+
+Example Structure:
+
+P21EntitySoapAPIChecks
+├── ContactServiceAPI
+│   ├── Common
+│   │   └── ContactServiceTestData.xml
+│   └── ContactServiceAPIChecks.cs
+
+---
+
+2. CLASS NAMING CONVENTION
+
+Class names must end with:
+ModuleNameAPIChecks.cs
+
+Example:
+CustomerAPIChecks.cs
+PurchaseOrderAPIChecks.cs
+ContactServiceAPIChecks.cs
+
+---
+
+3. TEST CASE NAMING CONVENTION
+
+Test case names must follow this format:
+
+ModuleName_APIMethodType
+
+Where APIMethodType is based on the HTTP method (Post or Get).
+
+Example:
+public void PurchaseOrderAPI_PostCall()
+public void CustomerAPI_GetCall()
+
+If there are multiple scenarios for the same call, make the test case name more descriptive.
+
+Example:
+public void PurchaseOrderAPI_PostCall_WithValidItemAndQuantity()
+public void PurchaseOrderAPI_PostCall_WithInvalidCustomerID()
+
+---
+
+4. BRANCH NAMING CONVENTION
+
+Standard Format:
+
+Tester_ProjectName_ModulesAdded/Description_Version
+
+Example:
+Arya_TransactionAPIChecks_CustomerPartNumber_Main
+
+Specific to project P21DataServiceAPIChecks:
+
+Tester_ProjectName_Table/View_ModulesAdded/Description_Version
+
+Example:
+Arya_P21DataServiceAPIChecks_Table_TestDataHdr_EccCustomColumnMappingXColumn_Main
+
+---
+
+5. PR TITLE NAMING CONVENTION
+
+Standard Format:
+
+ProjectName: Title based on added modules/Description and version
+
+Example:
+TransactionAPIChecks: Adding CustomerPartNumber module in Main
+
+Specific to project P21DataServiceAPIChecks:
+
+P21DataServiceAPIChecks_Table/View: Adding endpoint names in version
+
+Example:
+P21DataServiceAPIChecks_Table: Adding test case for TestDataHdr, EccCustomColumnMappingXColumn modules for Main
+
+---
+
+6. DATABASE VALIDATION RULES
+
+When validating API responses against the database:
+
+* SQL queries must always fetch the latest data.
+* SQL queries must include a WHERE clause.
+* Validate only the endpoint under test.
+* Avoid validating endpoint dependencies in the flow.
+
+---
+
+7. TEST DATA RULES
+
+Test data must always be fetched from the database.
+
+Do not hardcode values.
+
+If values are not available in the database (e.g., CodeP21Table values such as dropdown data), they may be hardcoded.
+
+---
+
+8. RANDOM DATA GENERATION
+
+Always use the Random function to generate new values for initialization or unique test data.
+
+Examples:
+
+var unitQuantity = $"{new Random().Next(1, 401)}";
+
+var itemID = $"ITEMID-{new Random().Next(0, 8763)}";
+
+---
+
+9. TEXTCONTEXT USAGE
+
+Use the TextContext method to print transaction numbers or important values used in test data.
+
+Use the following keywords based on context:
+
+* Created → For newly created records.
+* Generated → For system-generated values (e.g., PurchaseOrderNo).
+* Saved → For user-provided values (e.g., ItemID).
+* Updated → For updated values (e.g., OrderQuantity).
+* Used → For already generated values used in dependent flows (e.g., PurchaseOrder Number used for receipt).
+
+If multiple statements are printed, use “\n” at the beginning of a new line without adding space before it.
+
+---
+
+10. FLOW VALIDATION RULE
+
+In any API flow:
+
+* Validate only the endpoint being tested.
+* Do not validate dependencies between endpoints.
+* Keep validation focused strictly on the module under test.
+
+---
+
+MANDATORY CHECKLIST BEFORE COMMIT
+
+* Separate folder created for each endpoint.
+* Folder name ends with “API”.
+* Class name ends with ModuleNameAPIChecks.cs.
+* Test case names follow ModuleName_APIMethodType format.
+* Branch name follows correct project-specific convention.
+* PR title follows correct project-specific convention.
+* SQL queries include WHERE clause and fetch latest data.
+* Test data is fetched from DB (no hardcoding unless allowed).
+* Random values are used for new data creation.
+* TextContext is used correctly with proper keywords.
+* Only endpoint under test is validated.
+
+---
+
+If needed, I can also create a strict LLM-enforceable rule version specifically optimized for AI agents in the API repository.
