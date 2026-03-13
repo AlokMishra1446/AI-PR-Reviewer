@@ -1,71 +1,136 @@
-Below is your content rewritten properly in clean, structured TXT format for the API repository. You can directly copy and paste this into your project.
-
----
-
-API PROJECT GUIDELINES
-
----
-
 1. FOLDER STRUCTURE
 
 Create a separate folder for each endpoint or module.
 
-The folder name must be the endpoint name followed by “API”.
+Folder name must be: EndpointNameAPI
 
 Example:
 ItemAPI
 PurchaseOrderAPI
 ContactServiceAPI
 
-If payloads or test data are required, create a Common folder inside the respective module folder.
+If payload builders or test data files are required:
 
-Example:
-ModuleNamePayloadBuilder.cs
-ModuleNameTestData.xml
+Create a Common folder inside the endpoint folder.
+
+Store payload builders or test data files inside Common.
 
 Example Structure:
 
 P21EntitySoapAPIChecks
-├── ContactServiceAPI
-│   ├── Common
-│   │   └── ContactServiceTestData.xml
-│   └── ContactServiceAPIChecks.cs
+└── ContactServiceAPI
+├── Common
+│ └── ContactServiceTestData.xml
+└── ContactServiceAPIChecks.cs
 
----
+----------------------------------------------------------------------------------------------------
 
 2. CLASS NAMING CONVENTION
 
-Class names must end with:
+Class name must end with:
 ModuleNameAPIChecks.cs
 
-Example:
-CustomerAPIChecks.cs
+Examples:
 PurchaseOrderAPIChecks.cs
+CustomerAPIChecks.cs
 ContactServiceAPIChecks.cs
 
----
+----------------------------------------------------------------------------------------------------
 
 3. TEST CASE NAMING CONVENTION
 
-Test case names must follow this format:
-
+Format:
 ModuleName_APIMethodType
 
-Where APIMethodType is based on the HTTP method (Post or Get).
+APIMethodType must reflect HTTP method (Post or Get).
 
-Example:
+Examples:
 public void PurchaseOrderAPI_PostCall()
 public void CustomerAPI_GetCall()
 
-If there are multiple scenarios for the same call, make the test case name more descriptive.
+If multiple scenarios exist for same method:
+
+Add descriptive suffix.
+
+Examples:
+public void PurchaseOrderAPI_PostCall_WithValidItem()
+public void PurchaseOrderAPI_PostCall_WithInvalidCustomer()
+
+Test names must clearly describe what the test validates.
+
+----------------------------------------------------------------------------------------------------
+
+4. API VALIDATION RULES
+
+SQL queries must fetch the latest data.
+
+SQL queries must include a WHERE clause.
+
+Test data must always be fetched from the database.
+
+Do NOT hardcode values.
+
+Exception:
+
+If value is not found in database (e.g., CodeP21Table dropdown values), it may be hardcoded.
+
+Allowed Hardcoding Example:
+Dropdown static values from CodeP21Table.
+
+Not Allowed:
+Hardcoding ItemID, CustomerID, OrderQuantity, etc.
+
+----------------------------------------------------------------------------------------------------
+
+5. RANDOM DATA GENERATION RULE
+
+Always generate new values using Random for initialization or unique entries.
+
+Never reuse static values for new record creation.
+
+Examples:
+
+var unitQuantity = $"{new Random().Next(1, 401)}";
+var itemID = $"ITEMID-{new Random().Next(0, 8763)}";
+
+Use Random for:
+
+Unique item identifiers.
+
+Unique quantities.
+
+Unique test initialization data.
+
+----------------------------------------------------------------------------------------------------
+
+6. TEXTCONTEXT USAGE RULE
+
+Use TextContext method to log transaction numbers and test data information.
+
+Use correct keyword based on scenario:
+
+Created → When a new record is created.
+Generated → For system-generated values (e.g., PurchaseOrderNo).
+Saved → For user-entered values (e.g., ItemID).
+Updated → For updated values (e.g., OrderQuantity).
+Used → For reused dependent values (e.g., PurchaseOrder number used in receipt flow).
 
 Example:
-public void PurchaseOrderAPI_PostCall_WithValidItemAndQuantity()
-public void PurchaseOrderAPI_PostCall_WithInvalidCustomerID()
 
----
+TextContext.WriteLine("Generated Purchase Order Number: " + purchaseOrderNo);
 
-4. BRANCH NAMING CONVENTION
+If printing multiple statements:
+
+Use "\n" at the beginning of new line.
+
+Do not insert space before \n.
+
+Correct:
+"\nUpdated Quantity: " + updatedQuantity
+
+---------------------------------------------------------------------------------------------------
+
+7. BRANCH NAMING CONVENTION
 
 Standard Format:
 
@@ -74,106 +139,83 @@ Tester_ProjectName_ModulesAdded/Description_Version
 Example:
 Arya_TransactionAPIChecks_CustomerPartNumber_Main
 
-Specific to project P21DataServiceAPIChecks:
+SPECIAL RULE – P21DataServiceAPIChecks ONLY
+
+Branch Format:
 
 Tester_ProjectName_Table/View_ModulesAdded/Description_Version
 
 Example:
 Arya_P21DataServiceAPIChecks_Table_TestDataHdr_EccCustomColumnMappingXColumn_Main
 
----
+----------------------------------------------------------------------------------------------------------
 
-5. PR TITLE NAMING CONVENTION
+8. PR TITLE NAMING CONVENTION
 
 Standard Format:
 
-ProjectName: Title based on added modules/Description and version
+ProjectName: Description based on added modules and version
 
 Example:
 TransactionAPIChecks: Adding CustomerPartNumber module in Main
 
-Specific to project P21DataServiceAPIChecks:
+SPECIAL RULE – P21DataServiceAPIChecks ONLY
 
-P21DataServiceAPIChecks_Table/View: Adding endpoint names in version
+PR Title Format:
+
+P21DataServiceAPIChecks_Table/View: Description and Version
 
 Example:
-P21DataServiceAPIChecks_Table: Adding test case for TestDataHdr, EccCustomColumnMappingXColumn modules for Main
+P21DataServiceAPIChecks_Table: Adding test case for TestDataHdr, EccCustomColumnMappingXColumn modules for Main.
 
----
+-----------------------------------------------------------------------------------------------------------------------
 
-6. DATABASE VALIDATION RULES
+9. ENDPOINT VALIDATION SCOPE RULE
 
-When validating API responses against the database:
+Validate only the API endpoint under test.
 
-* SQL queries must always fetch the latest data.
-* SQL queries must include a WHERE clause.
-* Validate only the endpoint under test.
-* Avoid validating endpoint dependencies in the flow.
+Do not validate chained dependencies.
 
----
+Keep validation strictly scoped to current module.
 
-7. TEST DATA RULES
+-----------------------------------------------------------------------------------------------------------------------
 
-Test data must always be fetched from the database.
+10. API RESPONSE VALIDATION RULE
 
-Do not hardcode values.
+Validate response status and structure.
 
-If values are not available in the database (e.g., CodeP21Table values such as dropdown data), they may be hardcoded.
+Validate database mapping.
 
----
+Ensure latest record validation.
 
-8. RANDOM DATA GENERATION
+SQL must contain WHERE clause for precision.
 
-Always use the Random function to generate new values for initialization or unique test data.
+Avoid validating unrelated fields not part of endpoint.
 
-Examples:
+--------------------------------------------------------------------------------------------------------------------------
 
-var unitQuantity = $"{new Random().Next(1, 401)}";
+11. MANDATORY API CHECKLIST BEFORE COMMIT
 
-var itemID = $"ITEMID-{new Random().Next(0, 8763)}";
+Separate folder created for each endpoint.
 
----
+Folder name ends with API.
 
-9. TEXTCONTEXT USAGE
+Class name ends with APIChecks.cs.
 
-Use the TextContext method to print transaction numbers or important values used in test data.
+Test case name follows ModuleName_APIMethodType.
 
-Use the following keywords based on context:
+Branch name follows correct format.
 
-* Created → For newly created records.
-* Generated → For system-generated values (e.g., PurchaseOrderNo).
-* Saved → For user-provided values (e.g., ItemID).
-* Updated → For updated values (e.g., OrderQuantity).
-* Used → For already generated values used in dependent flows (e.g., PurchaseOrder Number used for receipt).
+PR title follows correct format.
 
-If multiple statements are printed, use “\n” at the beginning of a new line without adding space before it.
+SQL includes WHERE clause.
 
----
+Latest DB record validated.
 
-10. FLOW VALIDATION RULE
+No hardcoded test data (except allowed exceptions).
 
-In any API flow:
+Random values used for new data.
 
-* Validate only the endpoint being tested.
-* Do not validate dependencies between endpoints.
-* Keep validation focused strictly on the module under test.
+TextContext used correctly.
 
----
-
-MANDATORY CHECKLIST BEFORE COMMIT
-
-* Separate folder created for each endpoint.
-* Folder name ends with “API”.
-* Class name ends with ModuleNameAPIChecks.cs.
-* Test case names follow ModuleName_APIMethodType format.
-* Branch name follows correct project-specific convention.
-* PR title follows correct project-specific convention.
-* SQL queries include WHERE clause and fetch latest data.
-* Test data is fetched from DB (no hardcoding unless allowed).
-* Random values are used for new data creation.
-* TextContext is used correctly with proper keywords.
-* Only endpoint under test is validated.
-
----
-
-If needed, I can also create a strict LLM-enforceable rule version specifically optimized for AI agents in the API repository.
+Only endpoint under test is validated.

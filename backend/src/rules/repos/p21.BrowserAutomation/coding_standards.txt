@@ -1,0 +1,136 @@
+1. TEST CASE STRUCTURE
+
+Maintain a consistent and well-defined execution order for all test cases so that other team members can easily understand and navigate the flow.
+
+Insert exactly 3 blank lines between each test case.
+
+Insert exactly 2 blank lines immediately after the login step to clearly separate authentication from test actions.
+
+Insert exactly 1 blank line after every window validation to visually separate validations from next actions.
+
+Insert exactly 1 blank line after every assertion to maintain readability and structure.
+
+Each test case must begin with a descriptive comment containing:
+
+Test case number.
+
+Clear summary of the scenario.
+
+Any prerequisites required for execution.
+
+Add comments only where necessary to explain intent.
+
+Avoid unnecessary blank spaces between code lines.
+
+Maintain structured and readable flow throughout the test case.
+
+-----------------------------------------------------------------------------------------------------
+
+2. ASSERTION RULES
+
+Always include assertions for mandatory fields.
+
+Always validate page or window load immediately after opening any window.
+
+Every assertion must include a meaningful and descriptive failure message.
+
+Use method chaining where applicable to improve readability.
+
+Insert 1 blank line after every assertion.
+
+Ensure decimal validations are included wherever numeric or pricing calculations are involved.
+
+Always use decimal values in test data where applicable to improve coverage.
+
+Ensure validation logic is aligned strictly with the scenario being tested.
+
+Example:
+Validate LocationId after setting it.
+Validate calculated quantities with decimal precision.
+
+-----------------------------------------------------------------------------------------------------
+
+3. WAITS
+
+Do NOT use static waits (e.g., Thread.Sleep).
+
+Use explicit waits.
+
+Use fluent waits.
+
+Prefer framework-level methods such as Set() and Assert() that internally manage explicit or fluent waits.
+
+Do not add unnecessary waits when framework synchronization already exists.
+
+Ensure waits are optimized to maintain faster execution time without compromising stability.
+
+-----------------------------------------------------------------------------------------------------
+
+4. WINDOW AND OBJECT NAMING
+
+Use meaningful and descriptive window identifiers based on the scenario.
+
+Window shorthand naming may follow:
+First letters of the window name + “w”.
+
+Examples:
+oew → OrderEntryWindow
+pow → PurchaseOrderWindow
+porgw → PurchaseOrderReceiptGridWindow
+
+Test class file names must always end with:
+TestScenarios
+
+Examples:
+ARTestScenarios
+OrderEntryTestScenarios
+
+Test class names must clearly represent the module being automated.
+
+------------------------------------------------------------------------------------------------------
+
+5. EXECUTION SETTINGS
+
+Before executing test cases, ensure:
+
+Base URL matches the intended environment.
+
+Unit test connections match repository and database configuration.
+
+Correct database connection is configured.
+
+Login mode is verified (Default or Mixed mode).
+
+Repository and database versions are aligned.
+
+Execution environment is consistent with expected configuration.
+
+Execution settings must be verified before raising PR or sharing results.
+
+-----------------------------------------------------------------------------------------------------
+
+6. PERFORMANCE AND EXECUTION OPTIMIZATION
+
+Use setText() instead of set() when assertion is not required to improve execution speed.
+
+Use set() when value validation is required.
+
+Prefer foreach over for loops when iterating through collections.
+
+Use ternary operators instead of if-else where applicable.
+
+Avoid unnecessary validations that are not part of the current scenario.
+
+Keep test flow efficient and focused strictly on scenario requirements.
+
+------------------------------------------------------------------------------------------------------------
+
+7. ADDITIONAL AUTOMATION DISCIPLINE
+
+Ensure decimal test coverage when working with pricing, quantity, or allocation calculations.
+
+Keep test cases independent and structured.
+
+Avoid validating unrelated modules within a single test.
+
+Maintain clear separation between login, actions, validations, and cleanup steps.

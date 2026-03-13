@@ -1,64 +1,64 @@
-1. TEST CASE STRUCTURE
+1. CODE FORMATTING AND ALIGNMENT
 
-Maintain a consistent and well-defined order for all test cases so that team members can easily understand and navigate the code.
+Use 4 spaces for indentation. Never use tabs.
 
-Always maintain 3 blank lines between each test case.
+Place opening and closing curly braces on new lines.
 
-Maintain 1 blank line after each validation or assertion.
+Align curly braces vertically.
 
-Do not include unnecessary blank spaces between code lines.
+Maintain consistent alignment across the file.
 
-Add one blank line before a comment when required.
+Use CTRL+K, CTRL+D before committing code.
 
-Each test case must begin with a comment.
+Do not insert unnecessary blank lines between code statements.
 
-Comment Rules:
+---------------------------------------------------------------------------------------------
 
-* Comments must start with a capital letter.
-* Comments must end with a period.
-* Use /* */ for multi-line comments.
-* Use // for single-line comments.
-* Insert one space after //.
-* Place comments on a separate line.
-* Do not place comments at the end of a code line.
+2. COMMENTS
 
----
+Comments must include a clear description.
 
-2. CODE LAYOUT AND FORMATTING
+Comments must:
 
-Use 4 spaces for indentation. Do not use tabs.
+Start with a capital letter.
 
-Place opening and closing curly braces on new lines and align them vertically.
+End with a period.
 
-Maintain proper alignment throughout the file.
+Use /* */ for multi-line comments.
 
-Use CTRL+K and CTRL+D for formatting before committing code.
+Use // for single-line comments.
 
-Never keep unused code in the file.
+Have exactly one space after //.
 
-Remove unused imports using CTRL+R and CTRL+G.
+Be placed on a separate line (never inline).
 
-Do not use console.log statements.
+Add single-line comments only when necessary to explain intent.
 
----
+Do not leave unused or commented-out code.
+
+---------------------------------------------------------------------------------------------
 
 3. NAMING CONVENTIONS
 
 Use meaningful and descriptive names for:
 
-* Variables
-* Methods
-* Functions
-* Objects
-* Constants
-* Test classes
-* Windows
+Variables
 
-Class names and method names must use PascalCase.
+Methods
 
-Method arguments and local variables must use camelCase.
+Classes
 
-Local variables can be lowercase.
+Constants
+
+Test cases
+
+Class names must use PascalCase.
+
+Method names must use PascalCase.
+
+Method arguments must use camelCase.
+
+Local variables must use camelCase (lowercase allowed).
 
 Do not use underscores in identifiers.
 
@@ -66,54 +66,51 @@ Do not use Hungarian notation.
 
 Avoid abbreviations.
 
-Use searchable names for constants.
+Use searchable constant names.
 
-Examples:
+Do not repeat logic unnecessarily.
 
-Use currentDate instead of yyyymmdstr.
+Do not pass indexed values directly into methods.
 
-Use descriptive names such as RowCount, RowNum, and ServiceRowNum.
+Store indexed values in descriptive variables first.
 
-Do not repeat yourself.
+Prefer string interpolation over string concatenation.
 
-Avoid passing indexed values directly into methods. Always store them in descriptive variables first and then pass them.
+Use && instead of &.
 
----
+Use || instead of |.
 
-4. PULL REQUEST RULES
+Avoid too many parameters in methods.
 
-Include the test case description and Jira link in the commit message.
+----------------------------------------------------------------------------------------------
 
-Attach screenshots of passing test cases for each build (main and version).
+4. CLEAN CODE ENFORCEMENT
 
-Pull and merge the latest branch changes before raising a PR.
+Remove unused imports.
 
-Ensure the PR title matches the test case name along with the version.
+Delete unused code.
 
----
+Do not use console.log.
 
-5. GENERAL RULES
+Prefer ternary operators over if-else where applicable.
 
-Maintain code alignment at all times.
+Prefer foreach over for loops when suitable.
 
-Avoid unused imports.
+-------------------------------------------------------------------------------------------------
 
-Avoid unused code.
+5. VERSION CONTROL RULES
 
-Do not leave commented unused code in the file.
+Branch Naming Format:
+TesterName_ModuleName_TestCaseName_Version
 
-Follow proper formatting standards strictly.
+Pull Request Rules:
 
----
+PR title must match test case name and version.
 
-MANDATORY CHECKLIST BEFORE COMMIT
+Include Jira link in commit message.
 
-* Maintain 3 blank lines between test cases.
-* Maintain 1 blank line after each assertion.
-* Include assertions for mandatory fields.
-* Do not use console logs.
-* Remove unused imports.
-* Follow proper naming conventions.
-* Follow proper comment structure.
+Include test case description in commit message.
 
----
+Pull latest changes before raising PR.
+
+Attach screenshots of passing tests for main and version builds.
